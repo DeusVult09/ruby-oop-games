@@ -1,0 +1,21 @@
+# .rubocop.yml
+
+AllCops:
+  TargetRubyVersion: 3.4.2
+  NewCops: enable
+  Exclude:
+    - "db/schema.rb"
+    - "node_modules/**/*"
+    - "vendor/**/*"
+
+Layout/LineLength:
+  Max: 100
+
+Metrics/MethodLength:
+  Max: 15
+
+Metrics/ClassLength:
+  Max: 120
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
