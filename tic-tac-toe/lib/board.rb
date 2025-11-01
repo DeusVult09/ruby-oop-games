@@ -17,5 +17,10 @@ end
 # updating position of the board based on player choice: "X" or "O"
 
 def board_update(position, choice)
-  
+  @grid[position - 1] = choice
+end
+
+# this one check if chosen position is 
+def position_empty?(position)
+  @grid[position - 1].is_a?(Integer)  
 end
