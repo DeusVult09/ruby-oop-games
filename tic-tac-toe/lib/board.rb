@@ -20,7 +20,7 @@ def board_update(position, choice)
   @grid[position - 1] = choice
 end
 
-# this one check if chosen position is 
+# this one checks if chosen position is occupied or not
 def position_empty?(position)
   @grid[position - 1].is_a?(Integer)  
 end
