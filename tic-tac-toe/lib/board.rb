@@ -1,5 +1,5 @@
 class Board
-  attr_accessor :grid 
+  attr_accessor :grid
 
   def initialize
     @grid = [1, 2, 3, 4, 5, 6, 7, 8, 9]
@@ -8,7 +8,7 @@ class Board
   def print_grid
     rows = [0, 1, 2].map do |i|
       row_values = @grid[i * 3, 3]
-      row_values.join(" | ")
+      row_values.join(' | ')
     end
     puts rows.join("\n--+---+--\n")
   end
@@ -22,5 +22,5 @@ end
 
 # this one checks if chosen position is occupied or not
 def position_empty?(position)
-  @grid[position - 1].is_a?(Integer)  
+  @grid[position - 1].is_a?(Integer)
 end
