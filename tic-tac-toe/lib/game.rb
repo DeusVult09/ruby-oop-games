@@ -91,9 +91,9 @@ class Game
 
   def next_turn
     if @current_player == @player1
-      @current_player == @player2
+      @current_player = @player2
     else
-      @current_player == @player1
+      @current_player = @player1
     end
   end
 end

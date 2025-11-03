@@ -12,19 +12,19 @@ class Board
     end
     puts rows.join("\n--+---+--\n")
   end
-end
 
-# updating position of the board based on player choice: "X" or "O"
+  # updating position of the board based on player choice: "X" or "O"
 
-def board_update(position, mark)
-  @grid[position - 1] = mark
-end
+  def board_update(position, mark)
+    @grid[position - 1] = mark
+  end
+  
+  # this one checks if chosen position is occupied or not
+  def position_empty?(position)
+    @grid[position - 1].is_a?(Integer)
+  end
 
-# this one checks if chosen position is occupied or not
-def position_empty?(position)
-  @grid[position - 1].is_a?(Integer)
-end
-
-def full?
-  @grid.none? { |cell| cell.is_a?(Integer) }
+  def full?
+    @grid.none? { |cell| cell.is_a?(Integer) }
+  end
 end
