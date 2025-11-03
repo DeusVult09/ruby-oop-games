@@ -57,16 +57,16 @@ class Game
       position = gets.chomp.to_i
 
       if @board.position_empty?(position)
-        @board.board_update(position, @current_player.choice)
+        @board.board_update(position, @current_player.mark)
         if @current_player == @player1
           @player1_moves << position
-           if @player1_moves.whos_the_winner?
+           if whos_the_winner?(@player1_moves)
             puts "Congrats! 'X' won the game!"
             break
            end
         else
           @player2_moves << position
-            if @player2_moves.whos_the_winner?
+            if whos_the_winner?(@player2_moves)
               puts "Congrats 'O' won the game!"
               break
             end

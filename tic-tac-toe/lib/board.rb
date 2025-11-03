@@ -16,8 +16,8 @@ end
 
 # updating position of the board based on player choice: "X" or "O"
 
-def board_update(position, choice)
-  @grid[position - 1] = choice
+def board_update(position, mark)
+  @grid[position - 1] = mark
 end
 
 # this one checks if chosen position is occupied or not
