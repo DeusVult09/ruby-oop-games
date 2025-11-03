@@ -2,6 +2,7 @@ require_relative 'board'
 require_relative 'player'
 
 # introducing game rules for better user experience
+
 WINNING_COMBOS = [[1, 2, 3], [4, 5, 6], [7, 8, 9],
 [1, 4, 7], [2, 5, 8], [3, 6, 9],
 [1, 5, 9], [3, 6, 7]]
@@ -51,21 +52,29 @@ class Game
 
       if @board.position_empty?(position)
         @board.board_update(position, @current_player.choice)
-        @player1_moves << position
-        next_player
-        @player2_moves << position
+        if @current_player == @player1
+          @player1_moves << position
+           if @player1_moves.whos_the_winner?
+            puts "Congrats! 'X' won the game!"
+            break
+           end
+        else
+          @player2_moves << position
+            if @player2_moves.whos_the_winner?
+              puts "Congrats 'O' won the game!"
+              break
+            end
+        end
+        if @board.full?
+        puts "It's a tie!"
+        end
+      next_turn
       else
-        puts "Position occupied, try again!"
-      end
-      if @player1_moves.whos_the_winner?
-        puts "Congrats! 'X' won the game!"
-      elsif @player2_moves.whos_the_winner?
-        puts "X lost, O won the game!"
-      else
-        "It's a tie!"
+      puts "Position occupied, try again!"
       end
     end
   end
+ 
 
   @player1_moves = []
   @player2_moves = []
@@ -78,11 +87,11 @@ class Game
 
   private
 
-  def next_player
-    if @current_player == player1
-      @current_player == player2
+  def next_turn
+    if @current_player == @player1
+      @current_player == @player2
     else
-      @current_player == player1
+      @current_player == @player1
     end
   end
 end
