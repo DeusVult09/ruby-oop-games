@@ -1,5 +1,4 @@
 require_relative 'lib/game'
 
-board = Board.new
-board.print_grid
-rules
+tic_tac_toe = Game.new
+tic_tac_toe.start

@@ -13,6 +13,12 @@ class Game
     players_setup
     @board = Board.new
     @current_player = @player1
+    @player1_moves = []
+    @player2_moves = []
+  end
+
+  def start
+    play_game
   end
 
   def show_rules
@@ -74,10 +80,6 @@ class Game
       end
     end
   end
- 
-
-  @player1_moves = []
-  @player2_moves = []
 
   def whos_the_winner?(player_moves)
     WINNING_COMBOS.any? do |array|
