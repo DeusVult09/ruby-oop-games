@@ -24,3 +24,7 @@ end
 def position_empty?(position)
   @grid[position - 1].is_a?(Integer)
 end
+
+def full_board?
+  @grid.none? { |cell| cell.is_a?(Integer) }
+end
