@@ -1,8 +1,7 @@
 class Guesser
   attr_accessor :name
 
-  def initialize(name, game)
-    self.name
-    @game = game
+  def initialize(name)
+    @name = name
   end
 end
