@@ -1,4 +1,4 @@
-class Guesser
+class Codemaker
   attr_accessor :name
 
   def initialize(name)
