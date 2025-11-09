@@ -6,7 +6,9 @@ class Game
   def initialize
     show_rules
     codebreaker_setup
-
+    board = Board.new
+    board.generate_code
+    puts board.secret_code.join(' ')
   end
 
   def start

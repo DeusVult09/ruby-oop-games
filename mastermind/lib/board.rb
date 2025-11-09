@@ -1,24 +1,9 @@
-require_relative 'guesser' 
+require_relative 'guesser'
 require 'colorize'
 
 class Board
-  attr_accessor :guess_code
-  attr_reader :secret_code
-
-  def initialize
-    @colors = ['RED'.red, 'BLUE'.blue, 'GREEN'.green, 'YELLOW'.yellow]
-    @secret_code = Array.new
-  end
-
-  def generate_code
-    @secret_code = Array.new(@colors.length) { @colors.sample }
-  end
-
-  def guess_code
-    puts "Dear, #{@name}, you need to guess color combinations secretly written by the computer."
-    @guess_code = gets.chomp.upcase.chars
-  end
-
+  attr_accessor :guess_code, :secret_code
+  
   def feedback
     @reds = 0
     @whites = 0
