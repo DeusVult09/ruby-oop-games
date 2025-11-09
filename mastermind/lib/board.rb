@@ -1,12 +1,6 @@
 require_relative 'guesser' 
 require 'colorize'
 
-# brief method plan: 
-# A way to set or generate the secret code ✅
-# A method to receive a player’s guess.✅
-# A method to calculate feedback (reds + whites).✅
-# A method to print that feedback cleanly.✅
-
 class Board
   attr_accessor :guess_code
   attr_reader :secret_code
@@ -39,16 +33,14 @@ class Board
         @copy_guess[i]  = '❌'
       end
     end
-    4.times do [i]
-      if @copy_secret[i] == '❌'
-        next
-      end
+    4.times do |i|
+      next if @copy_guess[i] == '❌'
       index = @copy_secret.find_index(@copy_guess[i])
       if index 
         @whites += 1
         @copy_secret[index] = '❌'       
       end
-      puts "RED PEGS: #{@reds}, WHITE PEGS: #{@whites}"
-    end
+    end 
+    puts "RED PEGS: #{@reds}, WHITE PEGS: #{@whites}"
   end
 end
