@@ -6,8 +6,7 @@ class Codebreaker
     @guess_code = []
   end
 
-  def guess_code
-    puts "Dear, #{@name}, you need to guess color combinations secretly written by the computer."
+  def decode
     @guess_code = gets.chomp.upcase.chars
   end
 end
