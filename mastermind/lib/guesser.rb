@@ -7,6 +7,7 @@ class Codebreaker
   end
 
   def decode
-    @guess_code = gets.chomp.upcase.chars
+    input = gets.chomp.upcase
+    @guess_code = input.split(',').map(&:strip)
   end
 end

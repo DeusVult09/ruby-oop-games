@@ -9,5 +9,6 @@ class Mastermind
 
   def generate_code
     @secret_code = Array.new(4) { @colors.sample }
+    puts @secret_code
   end
 end

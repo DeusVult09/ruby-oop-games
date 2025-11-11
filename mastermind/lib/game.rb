@@ -1,17 +1,20 @@
 require_relative 'board'
 require_relative 'guesser'
 require_relative 'mastermind'
+require 'colorize'
 
 class Game
   def initialize
     show_rules
     codebreaker_setup
-    choose_role
+    
+    @codebreaker = Codebreaker.new(@name)
+    @mastermind = Mastermind.new
+    @mastermind.generate_code
+
     @board = Board.new
-    if @mastermind
-      @mastermind.generate_code
-      @board.secret_code = @mastermind.generate_code
-    end
+    @board.secret_code = @mastermind.secret_code
+
   end
 
   def start
@@ -46,6 +49,7 @@ class Game
   def play_game
     round_count = 1
     puts "Dear, #{@name}, you need to guess color combinations secretly written by the computer 🔮"
+    puts 'Enter your color guesses (4): ' 
 
     loop do 
       @codebreaker.decode
@@ -75,6 +79,6 @@ class Game
     @board = Board.new
     @mastermind.secret_code if @mastermind
     @board.guess_code = []
-  end
     play_game
+  end
 end
