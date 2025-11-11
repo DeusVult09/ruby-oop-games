@@ -24,7 +24,7 @@ class Board
       index = @copy_secret.find_index(@copy_guess[i])
       if index 
         @whites += 1
-        @copy_secret[index] = '❌'       
+        @copy_secret[index] = '❌'     
       end
     end 
     puts "RED PEGS: #{@reds}, WHITE PEGS: #{@whites}"

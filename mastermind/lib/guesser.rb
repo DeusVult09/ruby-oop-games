@@ -9,5 +9,6 @@ class Codebreaker
   def decode
     input = gets.chomp.upcase
     @guess_code = input.split(',').map(&:strip)
+    puts @guess_code.map { |c| c.colorize(c.downcase.to_sym) }.join(' ')
   end
 end

@@ -32,7 +32,7 @@ class Game
   end
 
   def codebreaker_setup
-    puts 'Dear, Codebreaker, please enter your name: '
+    puts 'Dear Codebreaker, please enter your name: '
     @name = gets.chomp
   end
 
@@ -48,7 +48,7 @@ class Game
 
   def play_game
     round_count = 1
-    puts "Dear, #{@name}, you need to guess color combinations secretly written by the computer 🔮"
+    puts "Dear #{@name}, you need to guess color combinations secretly written by the computer 🔮"
     puts 'Enter your color guesses (4): ' 
 
     loop do 
@@ -71,8 +71,12 @@ class Game
 
     puts 'Do you want to restart the game? (y/n)'
     answer = gets.chomp.downcase
-    restart if answer == 'y'
-
+    if answer == 'y'
+      restart
+    else 
+      puts 'Goodbye!'
+      return
+    end
   end
 
   def restart 
