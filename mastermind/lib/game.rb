@@ -65,6 +65,8 @@ class Game
 
       if round_count == 12
         puts "Game is over! You couldn't break the secret code of Mastermind"
+        puts "Here is the secret code:"
+        puts @board.secret_code.map { |c| c.colorize(c.downcase.to_sym) }.join(' ')
         break
       end
     end
