@@ -44,7 +44,7 @@ class Game
       @mastermind.set_code
     else
       @codebreaker = Codebreaker.new(@name)
-      @codebreaker.decode
+      @codebreaker.human_guess
     end
   end
 
@@ -54,7 +54,7 @@ class Game
     puts 'Enter your color guesses (4): ' 
 
     loop do 
-      @codebreaker.decode
+      @codebreaker.human_guess
       @board.guess_code = @codebreaker.guess_code
       puts "ROUND #{round_count} <<< #{@board.guess_code}"
       @board.feedback  
@@ -80,6 +80,15 @@ class Game
     else 
       puts 'Goodbye!'
       return
+    end
+  end
+
+  def human_mastermind
+    @mastermind.set_code
+    round_count = 1
+
+    loop do
+      @codebreaker.
     end
   end
 

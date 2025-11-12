@@ -5,7 +5,6 @@ class Mastermind
   def initialize
     @colors = ['RED', 'BLUE', 'GREEN', 'YELLOW']
     @secret_code = []
-    @set_code = []
   end
 
   def generate_code
