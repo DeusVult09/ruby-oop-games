@@ -17,7 +17,7 @@ class Game
 
   end
 
-  def start
+  def start(human_choice)
     play_game
   end
 
@@ -41,8 +41,10 @@ class Game
     choice = gets.chomp.to_i
     if choice == 1
       @mastermind = Mastermind.new
+      @mastermind.set_code
     else
       @codebreaker = Codebreaker.new(@name)
+      @codebreaker.decode
     end
   end
 
