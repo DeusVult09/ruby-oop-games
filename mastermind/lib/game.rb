@@ -39,19 +39,17 @@ class Game
   def choose_role
     puts 'Would you like to be the (1) Mastermind or (2) Codebreaker? Enter number only:'
     choice = gets.chomp.to_i
+    @board = Board.new
+
     if choice == 1
       @mastermind = Mastermind.new
       @mastermind.set_code
-      @codebreake = Codebreaker.new('Computer')
-      @codebreaker.computer_guess
-      @board = Board.new
-      human_guess
+      @codebreaker = Codebreaker.new('Computer')
+      computer_play
     else
       @codebreaker = Codebreaker.new(@name)
-      @codebreaker.human_guess
       @mastermind = Mastermind.new
       @mastermind.generate_code
-      @board = Board.new
       play_game
     end
   end
@@ -91,15 +89,15 @@ class Game
     end
   end
 
-  def human_guess
-    @mastermind.set_code
+  def computer_play
     round_count = 1
 
     loop do
       @codebreaker.computer_guess
-      @board.guess_code = @codebreaker.guess_code
-      puts "ROUND #{round_count} <<< #{@board.guess_code}"
       @board.secret_code = @mastermind.secret_code
+      @board.guess_code = @codebreaker.guess_code
+
+      puts "ROUND #{round_count} <<< #{@board.guess_code}"
       @board.feedback
 
       if @board.reds == 4
@@ -107,6 +105,7 @@ class Game
         break
       elsif round_count == 12
         puts 'You won 🏆 Computer failed to crack your secret code'
+        break
       end
       round_count += 1
     end
