@@ -37,14 +37,22 @@ class Game
   end
 
   def choose_role
-    puts 'Would you like to be the (1) Masterind or (2) Codebreaker? Enter number only:'
+    puts 'Would you like to be the (1) Mastermind or (2) Codebreaker? Enter number only:'
     choice = gets.chomp.to_i
     if choice == 1
       @mastermind = Mastermind.new
       @mastermind.set_code
+      @codebreake = Codebreaker.new('Computer')
+      @codebreaker.computer_guess
+      @board = Board.new
+      human_guess
     else
       @codebreaker = Codebreaker.new(@name)
       @codebreaker.human_guess
+      @mastermind = Mastermind.new
+      @mastermind.generate_code
+      @board = Board.new
+      play_game
     end
   end
 
@@ -60,13 +68,13 @@ class Game
       @board.feedback  
 
       if @board.reds == 4
-        puts 'Congrats! You broke the secret code of the Mastermind 🏆'
+        puts 'Congrats! You cracked the secret code of the Mastermind 🏆'
         break
       end
       round_count += 1
 
       if round_count == 12
-        puts "Game is over! You couldn't break the secret code of Mastermind"
+        puts "Game is over! You failed to crack the secret code ❌ "
         puts "Here is the secret code:"
         puts @board.secret_code.map { |c| c.colorize(c.downcase.to_sym) }.join(' ')
         break
@@ -83,12 +91,33 @@ class Game
     end
   end
 
-  def human_mastermind
+  def human_guess
     @mastermind.set_code
     round_count = 1
 
     loop do
-      @codebreaker.
+      @codebreaker.computer_guess
+      @board.guess_code = @codebreaker.guess_code
+      puts "ROUND #{round_count} <<< #{@board.guess_code}"
+      @board.secret_code = @mastermind.secret_code
+      @board.feedback
+
+      if @board.reds == 4
+        puts 'Computer cracked your code ❌'
+        break
+      elsif round_count == 12
+        puts 'You won 🏆 Computer failed to crack your secret code'
+      end
+      round_count += 1
+    end
+    
+    puts 'Do you want to restart the game? (y/n)'
+    answer = gets.chomp.downcase
+    if answer == 'y'
+      restart
+    else 
+      puts 'Goodbye!'
+      return
     end
   end
 

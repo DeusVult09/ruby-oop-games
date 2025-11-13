@@ -12,9 +12,9 @@ class Mastermind
   end
 
   def set_code 
-  puts "Enter your secret code (4 colors, separated by commas): "
-  input = gets.chomp.upcase
-  @secret_code = input.split(',').map(&:strip)
-  puts "Your secret code has been set!"
+    puts "Enter your secret code (4 colors, separated by commas): "
+    input = gets.chomp.upcase
+    @secret_code = input.split(',').map(&:strip)
+    puts "Your secret code has been set!"
   end
 end
