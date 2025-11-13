@@ -7,17 +7,11 @@ class Game
   def initialize
     show_rules
     codebreaker_setup
-    
-    @codebreaker = Codebreaker.new(@name)
-    @mastermind = Mastermind.new
-    @mastermind.generate_code
-
     @board = Board.new
-    @board.secret_code = @mastermind.secret_code
-
+    choose_role
   end
 
-  def start(human_choice)
+  def start
     play_game
   end
 
@@ -78,15 +72,7 @@ class Game
         break
       end
     end
-
-    puts 'Do you want to restart the game? (y/n)'
-    answer = gets.chomp.downcase
-    if answer == 'y'
-      restart
-    else 
-      puts 'Goodbye!'
-      return
-    end
+    prompt_restart
   end
 
   def computer_play
@@ -109,21 +95,24 @@ class Game
       end
       round_count += 1
     end
-    
+    prompt_restart
+  end
+
+
+  def prompt_restart
     puts 'Do you want to restart the game? (y/n)'
     answer = gets.chomp.downcase
     if answer == 'y'
       restart
-    else 
+    else
       puts 'Goodbye!'
       return
     end
   end
 
-  def restart 
+  def restart
     @board = Board.new
-    @mastermind.secret_code if @mastermind
-    @board.guess_code = []
-    play_game
+    choose_role
+    start
   end
 end
