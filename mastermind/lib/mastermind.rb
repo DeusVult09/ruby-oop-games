@@ -1,3 +1,4 @@
+require 'colorize'
 
 class Mastermind
   attr_reader :secret_code
@@ -15,7 +16,7 @@ class Mastermind
     puts "Enter your secret code (4 colors, separated by commas): "
     input = gets.chomp.upcase
     @secret_code = input.split(',').map(&:strip)
-    @secret_code.map { |c| c.colorize(c.downcase.to_sym) }.join(' ')
+    puts secret_code.map { |c| c.colorize(c.downcase.to_sym) }.join(' ')
     puts "Your secret code has been set!"
   end
 end

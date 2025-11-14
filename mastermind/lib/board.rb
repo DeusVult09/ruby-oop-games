@@ -4,6 +4,11 @@ require 'colorize'
 class Board
   attr_accessor :guess_code, :secret_code
   attr_reader :reds, :whites
+
+  def initialize
+    @guess_code = []
+    @secret_code = []
+  end
   
   def feedback
     @reds = 0

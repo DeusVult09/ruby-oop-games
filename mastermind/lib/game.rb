@@ -8,11 +8,6 @@ class Game
     show_rules
     codebreaker_setup
     @board = Board.new
-    choose_role
-  end
-
-  def start
-    play_game
   end
 
   def show_rules
@@ -33,17 +28,18 @@ class Game
   def choose_role
     puts 'Would you like to be the (1) Mastermind or (2) Codebreaker? Enter number only:'
     choice = gets.chomp.to_i
-    @board = Board.new
 
     if choice == 1
       @mastermind = Mastermind.new
       @mastermind.set_code
       @codebreaker = Codebreaker.new('Computer')
+      @board.secret_code = @mastermind.secret_code
       computer_play
     else
       @codebreaker = Codebreaker.new(@name)
       @mastermind = Mastermind.new
       @mastermind.generate_code
+      @board.secret_code = @mastermind.secret_code
       play_game
     end
   end
@@ -82,6 +78,7 @@ class Game
       @codebreaker.computer_guess
       @board.secret_code = @mastermind.secret_code
       @board.guess_code = @codebreaker.guess_code
+      puts @secret_code.map { |c| c.colorize(c.downcase.to_sym) }.join(' ')
 
       puts "ROUND #{round_count} <<< #{@board.guess_code}"
       @board.feedback
@@ -113,6 +110,5 @@ class Game
   def restart
     @board = Board.new
     choose_role
-    start
   end
 end
