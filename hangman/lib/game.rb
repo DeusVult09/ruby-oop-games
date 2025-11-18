@@ -4,6 +4,8 @@ require_relative 'player'
 
 class Game
   def initialize
+    show_rules
+    player_setup
 
   end
 
@@ -25,12 +27,32 @@ class Game
   def player_setup
     puts 'Dear player, enter your name:'
     @name = gets.chomp
+    @player = Player.new(name)
   end
 
   def select_word
     random_word = File.readlines('words.txt', chomp: true)
     filtered_word = random_word.select { |w| w.length.between?(5, 12) }
-    secret_word = filtered_word.sample
+    @secret_word =  filtered_word.sample
+  end
+
+  def play_game
+    select_word
+    @blank_word = Array.new(@secret_word.length, '_')
+    puts @blank_word.join('')
+
+    @turn = 1
+  end
+
+  def loop_guess
+    puts 'Do you want to save your game? (y/n)'
+    @answer = gets.chomp.downcase
+    if @answer == 'y'
+      GameSerializer.save(self) 
+      puts 'You successfully saved the game!'
+    end
+
+    
   end
 
   def display_feedback
