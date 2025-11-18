@@ -13,5 +13,6 @@ class Player
     puts 'Enter your guess letter:'
     input = gets.chomp.downcase
     @guess_letter << input
+    input
   end
 end

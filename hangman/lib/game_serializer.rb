@@ -1,9 +1,13 @@
 module GameSerializer
-  def self.save(state, path = './saves/save.mld')
-    File.write(path, Marshal.dump(state))
+  PATH = path = './saves/save.mld'
+
+  def self.save(game)
+    save_game = GameSave.new(game)
+    File.write(PATH, Marshal.dump(save_game))
   end
 
-  def self.load(path = './saves/save.mld')
-    Marshal.load(File.read(path))
+  def self.load(game)
+    save_data = Marshal.load(File.read(PATH))
+    save_data.load(game)
   end
 end

@@ -5,8 +5,14 @@ require_relative 'player'
 class Game
   def initialize
     show_rules
-    player_setup
-
+    puts 'Do you want to load a saved game? (yes/no)'
+    if gets.chomp.downcase == 'yes'
+      GameSerializer.load(self)
+    else
+      player_setup
+      select_word
+    end
+    play_game
   end
 
   def show_rules
@@ -57,7 +63,7 @@ class Game
     show_feedback
   end
 
-  def guess_loop
+  def guess_loop(guess)
     if @secret_word.include?(guess)
       @secret_word.chars.each_with_index do |letter, position| 
         if letter == guess
@@ -66,13 +72,13 @@ class Game
       end
       puts "You've guessed the letter! #{@blank_word.join('')}"
     else 
-      @turn -= 1
+      @turns -= 1
       puts "Icorrect! Your remaining lives #{@turns}"
     end
   end
 
   def show_feedback
-    if @blank_word.join('') == @secret.word
+    if @blank_word.join('') == @secret_word
       puts "Congrats! You've guessed the word #{@secret_word}"
     else
       puts "You lost! The secret word was #{@secret_word}"
