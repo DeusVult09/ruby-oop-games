@@ -34,29 +34,48 @@ class Game
     random_word = File.readlines('words.txt', chomp: true)
     filtered_word = random_word.select { |w| w.length.between?(5, 12) }
     @secret_word =  filtered_word.sample
+    @blank_word = Array.new(@secret_word.length, '_')
+    puts @blank_word.join('')
+    @turns = 7
   end
 
   def play_game
     select_word
-    @blank_word = Array.new(@secret_word.length, '_')
-    puts @blank_word.join('')
-
-    @turn = 1
-  end
-
-  def loop_guess
-    puts 'Do you want to save your game? (y/n)'
-    @answer = gets.chomp.downcase
-    if @answer == 'y'
-      GameSerializer.save(self) 
-      puts 'You successfully saved the game!'
+    while @turns > 0 && @blank_word.join != @secret_word
+      puts "Word: #{@blank_word.join(' ')}"
+      puts "Lives left: #{@turns}"
+      
+      guess = @player.make_guess
+      guess_loop(guess)
+      puts 'Do you want to save your game? (y/n)'
+      @answer = gets.chomp.downcase
+      if @answer == 'y'
+        GameSerializer.save(self) 
+        puts 'You successfully saved the game!'
+      end
     end
-
-    
+    show_feedback
   end
 
-  def display_feedback
-    puts 
+  def guess_loop
+    if @secret_word.include?(guess)
+      @secret_word.chars.each_with_index do |letter, position| 
+        if letter == guess
+          @blank_word[position] = guess
+        end
+      end
+      puts "You've guessed the letter! #{@blank_word.join('')}"
+    else 
+      @turn -= 1
+      puts "Icorrect! Your remaining lives #{@turns}"
+    end
+  end
+
+  def show_feedback
+    if @blank_word.join('') == @secret.word
+      puts "Congrats! You've guessed the word #{@secret_word}"
+    else
+      puts "You lost! The secret word was #{@secret_word}"
+    end
   end
 end
-
