@@ -33,8 +33,6 @@ class Game
   end
 
   def player_setup
-    puts 'Dear player, enter your name:'
-    @name = gets.chomp
     @player = Player.new(@name)
   end
 
