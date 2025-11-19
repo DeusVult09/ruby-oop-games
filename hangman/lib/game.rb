@@ -3,6 +3,8 @@ require_relative 'save_game'
 require_relative 'player'
 
 class Game
+  attr_accessor :secret_word, :blank_word, :turns, :player, :guess_letter
+
   def initialize
     show_rules
     puts 'Do you want to load a saved game? (yes/no)'
@@ -33,7 +35,7 @@ class Game
   def player_setup
     puts 'Dear player, enter your name:'
     @name = gets.chomp
-    @player = Player.new(name)
+    @player = Player.new(@name)
   end
 
   def select_word
@@ -52,12 +54,26 @@ class Game
       puts "Lives left: #{@turns}"
       
       guess = @player.make_guess
+      if guess.downcase == 'exit'
+        puts "Exiting game. Your progress is saved."
+        GameSerializer.save(GameSave.new(self))
+        return
+      end
+
       guess_loop(guess)
-      puts 'Do you want to save your game? (y/n)'
-      @answer = gets.chomp.downcase
-      if @answer == 'y'
-        GameSerializer.save(self) 
+
+      loop do 
+        puts 'Do you want to save your game? (y/n)'
+        answer = gets.chomp.downcase
+        if answer == 'y'
+        GameSerializer.save(GameSave.new(self)) 
         puts 'You successfully saved the game!'
+        break
+        elsif answer == 'n'
+          break
+        else
+          puts 'Enter "y" or "n"'
+        end
       end
     end
     show_feedback
@@ -83,5 +99,6 @@ class Game
     else
       puts "You lost! The secret word was #{@secret_word}"
     end
+    return
   end
 end

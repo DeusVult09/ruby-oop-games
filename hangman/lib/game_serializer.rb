@@ -1,5 +1,5 @@
 module GameSerializer
-  PATH = path = './saves/save.mld'
+  PATH = './saves/save.mld'
 
   def self.save(game)
     save_game = GameSave.new(game)

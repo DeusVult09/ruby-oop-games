@@ -1,11 +1,8 @@
 
 class Player
-  attr_accessor :score, :guess_letter
-  attr_reader :name
+  attr_accessor :guess_letter
 
   def initialize(name)
-    @name = name
-    @score = 0
     @guess_letter = ''
   end
 
