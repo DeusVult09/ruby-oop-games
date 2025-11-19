@@ -48,7 +48,6 @@ class Game
   end
 
   def play_game
-    select_word
     while @turns > 0 && @blank_word.join != @secret_word
       puts "Word: #{@blank_word.join(' ')}"
       puts "Lives left: #{@turns}"
